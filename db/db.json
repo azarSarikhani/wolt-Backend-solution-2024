@@ -1,0 +1,19 @@
+{
+    "min_cart_value": 1000, 
+    "base_delivery_distance": 1000,
+    "base_delivery_distance_value": 200, 
+    "gradient_distance": 500, 
+    "gradient_price_distance_value": 100,
+    "base_number_of_items": 4,
+    "gradient_price_per_extra_item": 50,
+    "large_number_of_items": 12,
+    "large_number_of_items_penalty_value": 120,
+    "max_delivery_fee_value": 1500,
+    "free_delivery_eligible_cart_value": 20000,
+    "rush_hour_multiplier": 1.2,
+    "rush_hour_days": [4],
+    "rush_hour_start_hour": 15,
+    "rush_hour_end_hour": 19
+}
+
+
