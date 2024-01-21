@@ -13,7 +13,7 @@ def get_db():
 
 
 
-@app.post("/delivery_fee/", )
+@app.post("/", ) #/delivery_fee/
 def get_delivery_fee(input: FeeCalcRequestSchema, db: InitialConfig = Depends(get_db)):
     fee = calculate_fee(input=input, config=db)
     return fee
