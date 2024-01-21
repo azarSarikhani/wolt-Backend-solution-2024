@@ -1,13 +1,7 @@
 from pydantic import BaseModel
 
 from pydantic import BaseModel, Field,ValidationError, Field
-from enum import Enum
 from typing import Literal, List
-
-class DayNumber(int, Enum):
-    APPLE = 'apple'
-    BANANA = 'banana'
-    MELON = 'melon'
 
 
 class InitialConfig(BaseModel):
