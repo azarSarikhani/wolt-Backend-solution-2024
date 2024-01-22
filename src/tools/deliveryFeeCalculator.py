@@ -10,7 +10,7 @@ class FeeCalculator:
         surcharge = max(self.config.get("min_cart_value") - cart_value, 0)
         return (surcharge)
     def surcharge_distance(self, delivery_distance) -> int:
-        gradient_distance = ceil(max(delivery_distance - self.get("base_delivery_distance"), 0)/self.get("gradient_distance"))
+        gradient_distance = ceil(max(delivery_distance - self.config.get("base_delivery_distance"), 0)/self.config.get("gradient_distance"))
         surcharge = gradient_distance * self.config.get("gradient_price_distance_value") + self.config.get("base_delivery_distance_value")
         return (surcharge)
     def surcharge_numb_of_items(self, number_of_items: int) -> int:
@@ -33,6 +33,8 @@ class FeeCalculator:
 
 
 def calculate_fee(input, config):
+    input = input.dict()
+    print(type(config))
     if input.get("cart_value") > config.get("free_delivery_eligible_cart_value"):
         capped_surcharge = 0
     else:
