@@ -1,5 +1,5 @@
 import json
-from src.schemas.InitialConfig import InitialConfig
+from schemas.InitialConfig import InitialConfig
 from pydantic import ValidationError
 	
 

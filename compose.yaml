@@ -1,0 +1,15 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:5000"
+    volumes:
+      - ./src/db/db.json:/home/src/db/db.json
+    depends_on:
+      api-tests:
+        condition: service_completed_successfully
+  api-tests:
+    build:
+      dockerfile: Dockerfile_test
+    volumes:
+      - ./src/db/db.json:/home/src/db/db.json

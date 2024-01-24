@@ -2,6 +2,7 @@ import os
 import uvicorn
 from tools.deliveryFeeCalculator import calculate_fee
 from tools.loadDb import load_db
+from schemas.resposne_schemas import resposne_schema
 
 from schemas.InitialConfig import InitialConfig
 from fastapi import Depends, FastAPI, HTTPException
@@ -15,20 +16,18 @@ db = load_db()
 
 
 
-@app.post("/delivery_fee", )
+@app.post("/delivery_fee", response_model=resposne_schema)
 def get_delivery_fee(input: FeeCalcRequestSchema):
     fee = calculate_fee(input=input, config=db)
-    return fee
+    return {"delivery_fee": fee}
 
 
-@app.get("/", )
-def get_root():
-    return {"message": "Hel  lo World"}
+
 
 
 if __name__ == "__main__":
     print("this function is happy to be called directly.")
-    uvicorn.run("app:app", reload=True)
-    #config = uvicorn.Config("app:app", port=5000, log_level="info", reload=True)
-    #server = uvicorn.Server(config)
-    #server.run()
+    #uvicorn.run("app:app", reload=False)
+    config = uvicorn.Config("app:app", port=5000, log_level="info", reload=False, host='0.0.0.0')
+    server = uvicorn.Server(config)
+    server.run()

@@ -1,6 +1,6 @@
 import inspect
 from math import ceil
-from datetime import  datetime
+from datetime import  datetime, time
 
 
 class FeeCalculator:
@@ -18,10 +18,13 @@ class FeeCalculator:
         surcharge_2 = 0 if number_of_items < 12  else self.config.get("large_number_of_items_penalty_value") 
         surcharge = surcharge_1 +  surcharge_2
         return (surcharge)
-    def surcharge_rush_hours(self, order_time: datetime, total_surcharge: int) -> int:
-        order_time = datetime.strptime(order_time, '%Y-%m-%dT%H:%M:%SZ')
-        if order_time.weekday() in self.config.get("rush_hour_days"):
-            if order_time.hour >= self.config.get("rush_hour_start_hour") and order_time.hour <= self.config.get("rush_hour_end_hour"):
+    def surcharge_rush_hours(self, order_time: str, total_surcharge: int) -> int:
+        order_datetime = datetime.strptime(order_time, '%Y-%m-%dT%H:%M:%SZ')
+        order_time = datetime.strptime(order_time, '%Y-%m-%dT%H:%M:%SZ').time()
+        rush_start_time = time(self.config.get("rush_hour_start_hour"),0,0)
+        rush_end_time = time(self.config.get("rush_hour_end_hour"),0,0)
+        if order_datetime.weekday() in self.config.get("rush_hour_days"):
+          if rush_start_time <= order_time <= rush_end_time:
                 total_surcharge = self.config.get("rush_hour_multiplier")*total_surcharge
         return (total_surcharge)
     def fee_cap(self, total_surcharge) -> int:

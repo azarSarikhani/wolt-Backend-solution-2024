@@ -1,1 +1,14 @@
 **.pyc
+.pytest_cache
+__pycache__/
+.git/
+**/*.pyc
+**/__pycache__/
+**/__pycache__/**
+build
+dist
+*.egg-info
+*.egg/
+*.pyc
+__pycache__
+

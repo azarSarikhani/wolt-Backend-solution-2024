@@ -8,8 +8,6 @@ COPY src /home/src
 
 COPY tests /home/tests
 
-EXPOSE 5000
-
 WORKDIR /home
 
-CMD [ "python", "src/app.py" ]
+CMD [ "pytest", "-v" ]
