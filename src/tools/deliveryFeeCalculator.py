@@ -30,18 +30,22 @@ class FeeCalculator:
     def fee_cap(self, total_surcharge) -> int:
         delivery_fee = min(self.config.get("max_delivery_fee_value"), total_surcharge)
         return (delivery_fee)
+    def is_free_delivery(self, cart_value):
+        if cart_value >= self.config.get("free_delivery_eligible_cart_value"):
+            return True
+        return False
+
     
 
 
 
 
 def calculate_fee(input, config):
-    input = input.dict()
-    print(type(config))
-    if input.get("cart_value") > config.get("free_delivery_eligible_cart_value"):
+    # input = input.dict()
+    feeCalculator = FeeCalculator(config)
+    if feeCalculator.is_free_delivery(input.get("cart_value")):
         capped_surcharge = 0
     else:
-        feeCalculator = FeeCalculator(config)
         surcharge_base = feeCalculator.surcharge_base(input.get("cart_value"))
         surcharge_distance = feeCalculator.surcharge_distance(input.get("delivery_distance"))
         surcharge_numb_of_items = feeCalculator.surcharge_numb_of_items(input.get("number_of_items"))

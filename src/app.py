@@ -1,10 +1,9 @@
-import os
+import logging
 import uvicorn
 from tools.deliveryFeeCalculator import calculate_fee
 from tools.loadDb import load_db
 from schemas.resposne_schemas import resposne_schema
 
-from schemas.InitialConfig import InitialConfig
 from fastapi import Depends, FastAPI, HTTPException
 from schemas.FeeCalcRequestSchema import FeeCalcRequestSchema
 
@@ -18,7 +17,11 @@ db = load_db()
 
 @app.post("/delivery_fee", response_model=resposne_schema)
 def get_delivery_fee(input: FeeCalcRequestSchema):
-    fee = calculate_fee(input=input, config=db)
+    try:
+        fee = calculate_fee(input=input.model_dump(), config=db)
+    except Exception as e:
+        logging.error(e)
+        return {"message": "Problem in calculating fee."}
     return {"delivery_fee": fee}
 
 
