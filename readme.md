@@ -1,5 +1,6 @@
 # Project structure
 
+```bash
 .
 ├── Dockerfile
 ├── Dockerfile_test
@@ -20,6 +21,7 @@
 └── tests
     ├── __init__.py
     └── test_deliveryFeeCalculator.py
+```
 
 
 ## Docerfile
