@@ -15,7 +15,7 @@ db = load_db()
 
 
 
-@app.post("/delivery_fee", response_model=resposne_schema)
+@app.post("/", response_model=resposne_schema)
 def get_delivery_fee(input: FeeCalcRequestSchema):
     try:
         fee = calculate_fee(input=input.model_dump(), config=db)
