@@ -21,6 +21,7 @@
 └── tests
     ├── __init__.py
     └── test_deliveryFeeCalculator.py
+    └── test_response.py
 ```
 
 
@@ -36,7 +37,10 @@ This file includes needed packages to build and test the API, for simplicity the
 ## ./compose.yml
 This file incudes 2 services. One ´api´ and one ´api-tests´. ´api´ depends on ´api-tests´ is used by Docker to build 
 
-## src/db7db.json
+## src/app.py
+contains the main fastAPI application that defines root and methods in the API. Requests to the API land into get_delivery_fee of this file first. In the get_delivery_fee function input is converted to FeeCalcRequestSchema and is fed into calculate_fee.
+
+## src/db/db.json
 This file has all of the constant values declared in the question. The reason we are not using Docker env_file instead is that when loading db the schema validator can be checked to validate the initial values, in case these values need to be checked in the future when db gets bigger, and more complicated. This file is mapped to a valumo in the API container, and so if the initial values need to be changed the hole image does not need to be rebuilt, restarting the container is enough.
 
 ## src/schemas/FeeCalcRequestSchema.py
@@ -45,8 +49,17 @@ This file has input validators in place that is done thanks to type hints enforc
 ## src/schemas/InitialConfig.py
 InitialConfig is used to validate db. This validation is also done thanks to type hints enforced by pydantic library.
 
+## src/schemas/resposne_schemas.py
+This file declare and validates response schema
 
-This file is the heart of the calculator API. It 
+## src/tools/deliveryFeeCalculator.py
+This file is the heart of the calculator API. The FeeCalculator class in this file has all the functions needed to calculate delivery surcharges. These methods are called by calculate_fee function in turn.
+
+## src/tools/loadDb
+Load_db function reads, validates and returns the data in the database.
+
+## src/tests/test_deliveryFeeCalculator.py
+The tests directory is the defult directory that pytest is going to scan for tests
 
 # How to use
 
