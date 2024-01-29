@@ -6,16 +6,16 @@ from schemas.resposne_schemas import SuccessfulFeeCalculationResposneSchema, HTT
 from fastapi import FastAPI, HTTPException
 from schemas.FeeCalcRequestSchema import FeeCalcRequestSchema
 
-app = FastAPI(title="FastAPI Shirt app",
-              description="python project with fastAPI",
-    summary="Practice project with python and fastAPI",
-    version="0.0.1")
+app = FastAPI(title="Delivery fee calculator app",
+              description="Delivery fee calculator app with fastAPI",
+    summary="Delivery fee calculator app with fastAPI",
+    version="1.0.0")
 db = load_db()
 
 
 
-@app.post("/delivery_fee", responses={200: {"model": SuccessfulFeeCalculationResposneSchema}, 500: {"model":HTTPError, "description": "In case something goes wrong in calculating the fee"}})
-def get_delivery_fee(input: FeeCalcRequestSchema):
+@app.post("/", responses={200: {"model": SuccessfulFeeCalculationResposneSchema}, 500: {"model":HTTPError, "description": "In case something goes wrong in calculating the fee"}})
+def calculate_delivery_fee(input: FeeCalcRequestSchema):
     try:
         fee = calculate_fee(input=input.model_dump(), config=db)
     except Exception as e:
@@ -29,7 +29,6 @@ def get_delivery_fee(input: FeeCalcRequestSchema):
 
 if __name__ == "__main__":
     print("this function is happy to be called directly.")
-    #uvicorn.run("app:app", reload=False)
     config = uvicorn.Config("app:app", port=5000, log_level="info", reload=False, host='0.0.0.0')
     server = uvicorn.Server(config)
     server.run()

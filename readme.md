@@ -76,5 +76,5 @@ curl --location '127.0.0.1:8000/' \
 --header 'Content-Type: application/json' \
 --data '{"cart_value":1, "delivery_distance":3, "number_of_items":1, "time": "2024-05-22T12:23:04Z"}'
 ```
-Alternatively open a browser and go to port 8080 of your localhost,  yoou should see the app up and running. Go to localhost:8080/docs and try the app out. 
+Alternatively open a browser and go to port 8080 of your localhost,  yoou should see the app up and running. Go to ``` http://localhost:8000/docs ``` and try the app out. 
 
