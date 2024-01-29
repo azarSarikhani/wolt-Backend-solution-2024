@@ -2,9 +2,8 @@ import logging
 import uvicorn
 from tools.deliveryFeeCalculator import calculate_fee
 from tools.loadDb import load_db
-from schemas.resposne_schemas import resposne_schema
-
-from fastapi import Depends, FastAPI, HTTPException
+from schemas.resposne_schemas import SuccessfulFeeCalculationResposneSchema, HTTPError
+from fastapi import FastAPI, HTTPException
 from schemas.FeeCalcRequestSchema import FeeCalcRequestSchema
 
 app = FastAPI(title="FastAPI Shirt app",
@@ -15,14 +14,14 @@ db = load_db()
 
 
 
-@app.post("/", response_model=resposne_schema)
+@app.post("/delivery_fee", responses={200: {"model": SuccessfulFeeCalculationResposneSchema}, 500: {"model":HTTPError, "description": "In case something goes wrong in calculating the fee"}})
 def get_delivery_fee(input: FeeCalcRequestSchema):
     try:
         fee = calculate_fee(input=input.model_dump(), config=db)
     except Exception as e:
         logging.error(e)
-        return {"message": "Problem in calculating fee."}
-    return {"delivery_fee": fee}
+        raise HTTPException(status_code=500, detail="A Terrible Failure happebed in calculating the fee")
+    return SuccessfulFeeCalculationResposneSchema(delivery_fee=fee) 
 
 
 
