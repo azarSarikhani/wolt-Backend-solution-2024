@@ -59,7 +59,10 @@ This file is the heart of the calculator API. The FeeCalculator class in this fi
 Load_db function reads, validates and returns the data in the database.
 
 ## src/tests/test_deliveryFeeCalculator.py
-The tests directory is the defult directory that pytest is going to scan for tests
+Given that the tests directory is the defult directory that pytest scans for test files, test_deliveryFeeCalculator.py is placed here. This file has test cases for all of the methods listed in the FeeCalculator class.  
+
+## src/tests/test_response.py
+
 
 # How to use
 
