@@ -8,6 +8,10 @@ COPY src /home/src
 
 COPY tests /home/tests
 
+COPY ./.flake8 /home/.flake8
+
+COPY ./noxfile.py /home/noxfile.py
+
 WORKDIR /home
 
-CMD [ "pytest", "-v" ]
+CMD [ "nox" ]

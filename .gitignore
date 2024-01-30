@@ -59,6 +59,10 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# nox
+*.nox/
+.nox
+
 # Other ignores
 .DS_Store
 .vscode/

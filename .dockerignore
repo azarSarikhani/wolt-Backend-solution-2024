@@ -11,4 +11,6 @@ dist
 *.egg/
 *.pyc
 __pycache__
+*.nox/
+.nox
 

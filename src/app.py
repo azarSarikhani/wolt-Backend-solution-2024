@@ -8,23 +8,25 @@ from schemas.FeeCalcRequestSchema import FeeCalcRequestSchema
 
 app = FastAPI(title="Delivery fee calculator app",
               description="Delivery fee calculator app with fastAPI",
-    summary="Delivery fee calculator app with fastAPI",
-    version="1.0.0")
+              summary="Delivery fee calculator app with fastAPI",
+              version="1.0.0")
 db = load_db()
 
 
-
-@app.post("/", responses={200: {"model": SuccessfulFeeCalculationResposneSchema}, 500: {"model":HTTPError, "description": "In case something goes wrong in calculating the fee"}})
+@app.post("/",
+          responses={200: {"model": SuccessfulFeeCalculationResposneSchema},
+                     500: {"model": HTTPError,
+                           "description": "In case something goes wrong"}})
 def calculate_delivery_fee(input: FeeCalcRequestSchema):
     try:
         fee = calculate_fee(input=input.model_dump(), config=db)
     except Exception as e:
         logging.error(e)
-        raise HTTPException(status_code=500, detail="A Terrible Failure happebed in calculating the fee")
-    return SuccessfulFeeCalculationResposneSchema(delivery_fee=fee) 
-
-
-
+        raise HTTPException(
+            status_code=500,
+            detail="A Terrible Failure happebed in calculating the fee"
+        )
+    return SuccessfulFeeCalculationResposneSchema(delivery_fee=fee)
 
 
 if __name__ == "__main__":
