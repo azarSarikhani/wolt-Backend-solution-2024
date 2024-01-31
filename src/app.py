@@ -24,7 +24,7 @@ def calculate_delivery_fee(input: FeeCalcRequestSchema):
         logging.error(e)
         raise HTTPException(
             status_code=500,
-            detail="A Terrible Failure happebed in calculating the fee"
+            detail="A Terrible Failure happened in calculating the fee"
         )
     return SuccessfulFeeCalculationResposneSchema(delivery_fee=fee)
 
